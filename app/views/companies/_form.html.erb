@@ -1,41 +1,60 @@
-<%= form_for(@company) do |f| %>
-  <% if @company.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@company.errors.count, "error") %> prohibited this company from being saved:</h2>
+<div class="row">
 
-      <ul>
-      <% @company.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+<div class="columns large-6">
+  <%= form_for(@company) do |f| %>
+    <% if @company.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@company.errors.count, "error") %> prohibited this company from being saved:</h2>
+
+        <ul>
+        <% @company.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="row collapse">
+      <div class="small-7 large-9 columns">
+        <%= f.label :name %>
+        <%= f.text_field :name %>
+      </div>
+      <div class="small-4 large-2 columns">
+        <%= f.label :rating %>
+        <%= f.select :rating, options_for_select(Company::DATA_RATING) %>
+      </div>
+
     </div>
-  <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :rating %><br>
-    <%= f.number_field :rating %>
-  </div>
-  <div class="field">
-    <%= f.label :domain %><br>
-    <%= f.text_field :domain %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_area :description %>
-  </div>
-  <div class="field">
-    <%= f.label :logo %><br>
-    <%= f.text_field :logo %>
-  </div>
-  <div class="field">
-    <%= f.label :policy_url %><br>
-    <%= f.text_field :policy_url %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+    <div class="row collapse">
+      <%= f.label :domain %>
+      <div class="small-3 large-2 columns">
+        <span class="prefix">http://</span>
+      </div>
+      <div class="small-9 large-10 columns">
+        <%= f.text_field :domain, placeholder: "copmany.co" %>
+      </div>
+    </div>
+
+    <div class="row collapse">
+      <%= f.label "Link to this companies policy on data"%>
+      <div class="small-3 large-2 columns ">
+        <span class="prefix">http://</span>
+      </div>
+      <div class="small-9 large-10 columns">
+        <%= f.text_field :policy_url, placeholder: "company.co/data-policy" %>
+      </div>
+    </div>
+
+    <div class="row collapse">
+      <%= f.label :description %>
+      <%= f.text_area :description, rows: 6 %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "Add Company" , class: "button radius" %>
+    </div>
+
+  <% end %>
+</div>
+</div>
